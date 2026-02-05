@@ -11,9 +11,7 @@
  def route_param(route_param):
  
      # ruleid:dangerous-subprocess-use
--    subprocess.call("grep -R {} .".format(route_param), shell=True, cwd="/home/user")
-+    safe_route_param = shlex.quote(route_param)
-+    subprocess.call("grep -R {} .".format(safe_route_param), shell=True, cwd="/home/user")
+     subprocess.call("grep -R {} .".format(route_param), shell=True, cwd="/home/user")
  
      # ruleid:dangerous-subprocess-use
      subprocess.call(["sh", "-c", "grep -R {} .".format(route_param)], shell=True, cwd="/home/user") # Tests list input
@@ -22,7 +20,9 @@
      subprocess.call(("sh", "-c", "grep -R {} .".format(route_param)), shell=True, cwd="/home/user") # Tests tuple input
  
      # ruleid:dangerous-subprocess-use
-     subprocess.call("grep -R {} .".format(route_param), shell=True, cwd="/home/user")
+-    subprocess.call("grep -R {} .".format(route_param), shell=True, cwd="/home/user")
++    safe_route_param = shlex.quote(route_param)
++    subprocess.call("grep -R {} .".format(safe_route_param), shell=True, cwd="/home/user")
  
      return "oops!"
  
