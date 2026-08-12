@@ -1,4 +1,5 @@
 import os
+import subprocess
 import flask
 import hashlib
 
@@ -106,8 +107,8 @@ def subexpression_format():
 def subexpression_percent_format():
     param = "{}".format(flask.request.form['param'])
     print("do things")
-    # ruleid: os-system-injection
-    os.system("echo %s" % param)
+    # ok: os-system-injection
+    subprocess.run(["echo", param], shell=False)
 
 # Real world example
 @app.route('/', methods=['GET', 'POST'])
