@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 # ok:dangerous-system-call
 os.system("ls -al")
@@ -114,8 +115,8 @@ class MyApi(APIView):
 
         # ruleid:dangerous-system-call
         os.system("prefix" + user_data + "suffix")
-        # ruleid:dangerous-system-call
-        os.popen("prefix" + user_data + "suffix")
+        # ok:dangerous-system-call
+        subprocess.run(["prefix", user_data, "suffix"])
         # ruleid:dangerous-system-call
         os.popen2("prefix" + user_data + "suffix")
 
@@ -126,8 +127,8 @@ class MyApi(APIView):
 
         # ruleid:dangerous-system-call
         os.system("prefix" + user_data + "suffix")
-        # ruleid:dangerous-system-call
-        os.popen("prefix" + user_data + "suffix")
+        # ok:dangerous-system-call
+        subprocess.run(["prefix", user_data, "suffix"])
         # ruleid:dangerous-system-call
         os.popen2("prefix" + user_data + "suffix")
 
