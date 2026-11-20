@@ -2,6 +2,7 @@
 
 import json
 import flask
+import markupsafe
 from flask import Flask, request, make_response
 from somewhere import fxn
 app = Flask(__name__)
@@ -14,7 +15,7 @@ def XSS1():
 
     html = open('templates/XSS_param.html').read()
     # ruleid: make-response-with-unknown-content
-    resp = make_response(html.replace('{{ param }}', other_var))
+    resp = make_response(html.replace('{{ param }}', markupsafe.escape(other_var)))
     return resp
 
 # cf. https://github.com/alshapton/kb-api/commit/bd649de1da9e4020f9273fff183a74edfadc0b07
